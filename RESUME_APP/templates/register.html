@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Registration</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="static/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        .hidden{display: none;}
+        .a{text-align: center;
+        margin-top: 30px;}
+
+    </style>
+
+</head>
+
+<body class="bg-gradient-primary">
+    <!-- <div class="alert alert-danger hidden a">
+        <strong>Invalid!</strong>
+    </div> -->
+
+    <div class="container">
+        <br><br><br>
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row" class="col-lg-6">
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <img style="width:470px;height: 440px;" src="{% static 'img/resume_login_pic_2.jpg' %}">
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4"><b>Register</b></h1>
+                                    </div>
+                                    <form class="user">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="username" aria-describedby="emailHelp"
+                                                placeholder="Username">
+                                        </div>
+<!--...............................................................................................................-->
+                                         <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="first_name" aria-describedby="emailHelp"
+                                                placeholder="FirstName">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="last_name" aria-describedby="emailHelp"
+                                                placeholder="LastName">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control form-control-user"
+                                                id="email" aria-describedby="emailHelp"
+                                                placeholder="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="password1" aria-describedby="emailHelp"
+                                                placeholder="Password">
+                                        </div>
+
+<!-- ...................................................................................................................-->
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="password2" placeholder="Confirm Password">
+                                        </div>
+                                        <div class="form-group">
+                                            
+                                        </div>
+                                        <a id="b1" class="btn btn-primary btn-user btn-block">
+                                            Register
+                                        </a>
+                                        
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="static/js/sb-admin-2.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#b1").click(function(){
+                username=$("#username").val()
+                password1=$("#password1").val()
+                password2=$("#password2").val()
+                first_name=$("#first_name").val()
+                last_name=$("#last_name").val()
+                email=$("#email").val()
+
+                if((username=='')||(password1=='')||(password2=='')||(first_name=='')||(last_name=='')||(email==''))
+                {
+                    alert("fill all fields");
+                }
+                else
+                {
+                    $.ajax({
+                        url:"/check_register/",
+                        datatype:"json",
+                        data:{
+                            "uname":username,
+                            "pass1":password1,
+                            "pass2":password2,
+                            "fname":first_name,
+                            "lname":last_name,
+                            "email":email,
+                        },
+                        success:function(any)
+                        { 
+                            if(any=="HR Registration Successfull")
+                            {
+                                alert(any);
+                                window.location.assign("{% url 'display_login' %}");
+                            }
+                            else
+                            {
+                                // $(".a").removeClass("hidden");
+                                alert(any);
+                            }   
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+
+</body>
+
+</html>
